@@ -1,0 +1,84 @@
+#page {
+    transition: all .3s ease;
+    overflow-x:hidden;
+}
+
+.page-wrap {
+		max-width: 10rem;
+    margin: auto;
+    padding-bottom: 1.866667rem;
+}
+
+.hot {
+    background: #f0f3f5;
+    min-height: 100vh;
+    padding-bottom: 1.733333rem;
+}
+
+.show-menu {
+    transform: translateX($gap*40);
+}
+
+.page-cover {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 7;
+}
+
+
+/*模块入口样式*/
+
+.posts-list {
+    .msg {
+				padding: 0 .4rem;
+				margin-bottom: .213333rem;
+				background: #fff;
+    }
+    h3 {
+        @extend .link-title;
+        &:before {
+            margin-right: 10px;
+            margin-top: -3px;
+            @extend .tag;
+            color: $white;
+        }
+        &.top:before {
+            background: #E74C3C;
+        }
+        &.ask:before {
+            background: #3498DB;
+        }
+        &.good:before {
+            background: #E67E22;
+        }
+        &.job:before {
+            background: #9B59B6;
+        }
+        &.share:before {
+            background: #1ABC9C;
+        }
+    }
+    .info {
+        display: block;
+        width: 100%;
+        flex: 1;
+    }
+    p {
+        &:first-child {
+            font-size: $font-content;
+        }
+        .name, time:first-child {
+           display: block;
+           width: 100%;
+           flex: 1;
+        }
+        b {
+            color: #42b983;
+        }
+    }
+}
+
