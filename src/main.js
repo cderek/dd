@@ -3,8 +3,10 @@ import $ from 'webpack-zepto'
 import VueRouter from 'vue-router'
 import routes from './router'
 import FastClick from 'fastclick'
+import vueFilter from 'vue-filter'
 import 'lib-flexible'
 Vue.use(VueRouter)
+Vue.use(vueFilter)
 
 $.ajaxSettings.crossDomain = true
 

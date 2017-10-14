@@ -30,7 +30,7 @@ export const getCheck = {
  *   (new Date()).Format('yyyy-MM-dd hh:mm:ss.S') ==> 2006-07-02 08:09:04.423
  *   (new Date()).Format('yyyy-M-d h:m:s.S')      ==> 2006-7-2 8:9:4.18
  */
-export const fmtDate = (date, fmt) => { // author: meizz
+const fmtDate = (date, fmt) => { // author: meizz
   var o = {
     'M+': date.getMonth() + 1, // 月份
     'd+': date.getDate(), // 日
@@ -54,7 +54,7 @@ export const fmtDate = (date, fmt) => { // author: meizz
 /**
  * 调用Timeago库显示到现在的时间
  */
-export const MillisecondToDate = (time) => {
+const MillisecondToDate = (time) => {
   var str = ''
   if (time !== null && time !== '') {
     let timeagoInstance = new Timeago()

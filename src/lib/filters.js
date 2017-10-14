@@ -4,7 +4,7 @@ import utils from '../lib/utils';
  *  @param {string} time 需要格式化的时间
  *  @param {bool} friendly 是否是fromNow
  */
-exports.getLastTimeStr = (time, friendly) => {
+export const getLastTimeStr = (time, friendly) => {
     if (friendly) {
         return utils.MillisecondToDate(time);
     } else {
@@ -17,7 +17,7 @@ exports.getLastTimeStr = (time, friendly) => {
  *  @param {bool} good 是否是精华帖
  *  @param {bool} top 是否是置顶帖
  */
-exports.getTabStr = (tab, good, top) => {
+export const getTabStr = (tab, good, top) => {
     let str = '';
     if (top) {
         str = '置顶';
@@ -47,7 +47,7 @@ exports.getTabStr = (tab, good, top) => {
  *  @param {bool} good 是否是精华帖
  *  @param {bool} top 是否是置顶帖
  */
-exports.getTabClassName = (tab, good, top) => {
+export const getTabClassName = (tab, good, top) => {
     let className = '';
 
     if (top) {
