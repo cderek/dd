@@ -189,25 +189,24 @@
 }
 </style>
 <template>
-<div v-if="comments" class="hot-comments" transition="fade">
+<div v-if="hotComment.length !== 0"  class="hot-comments" transition="fade">
   <h1>热门评论</h1>
   <ul class="hc-list">
-    <li class="hc-item">
+    <li class="hc-item"  v-for="comment in hotComment">
       <div class="hc-item-header">
         <div class="user-avatar hc-item-avatar is-round is-inline">
-          <div class="user-avatar-content" style="background-image: url(&quot;data:image/jpeg;base64,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&quot;);">
-
+          <div class="user-avatar-content" :style="{ 'background-image': 'url(' + comment.user.profileImageUrl + ')' }">
           </div>
         </div>
-        <h3 class="hc-item-username">柒八染</h3>
+        <h3 class="hc-item-username">{{comment.user.screenName}}</h3>
         <a class="hc-item-like" href="//m.ruguoapp.com/messages/59d8acea44dbe700164625b7">
-          36
+          {{comment.likes}}
         </a>
       </div>
       <div class="hc-item-body">
-        <p class="hc-item-time">19:20</p>
-        <p data-v-76e18eba="" class="content-text hc-item-content">
-          <span data-v-76e18eba="">铲屎的！你派个吃屎的过来干嘛！</span>
+        <p class="hc-item-time">{{ comment.createdAt | date('%m:%s') }}</p>
+        <p class="content-text hc-item-content">
+          <span>{{comment.content}}</span>
         </p>
       </div>
     </li>
@@ -216,6 +215,6 @@
 </template>
 <script>
 export default {
-  props: ['comments']
+  props: ['hotComment']
 }
 </script>

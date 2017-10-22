@@ -1,5 +1,5 @@
 <template>
-  <div class="message-wrap page-wrap" transition-mode="out-in">
+  <div class="page-wrap" transition-mode="out-in">
     <div class="related-topics recommend-feed" transition="fade">
       <h1>推荐主题</h1>
       <div class="topic-card" v-for="item in topics" :key="item.id">
@@ -23,8 +23,8 @@
 
 
 <script>
-import $ from 'webpack-zepto'
 import {getLastTimeStr} from '../lib/utils.js'
+import {topicRecommend} from '../service/api'
 import topicLink from '../components/topic-link.vue'
 import jkButton from '../components/jk-button.vue'
 import nvFoot from '../components/footer.vue'
@@ -48,10 +48,10 @@ export default {
   },
   methods: {
     getTopicRecommendations () {
-      $.get('https://app.jike.ruguoapp.com/1.0/topicRecommendations/get', (d) => {
+      topicRecommend().then(res => {
         this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeTopics)
+        if (res && res.data) {
+          res.data.forEach(this.mergeTopics)
         }
       })
     },

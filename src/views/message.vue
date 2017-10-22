@@ -51,7 +51,7 @@
     <div class="related-topics" transition="fade">
       <div class="related-section-title">更多推荐</div>
       <div>
-        <div class="topic-card" v-for="item in recommendTopics" :key="item.id">
+        <div class="topic-card" v-for="item in similarTopics" :key="item.id">
           <div class="topic-card-header">
             <div class="topic-info">
               <h1 class="title">{{item.content}}</h1>
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import $ from 'webpack-zepto'
+import {sharePage, getHotComments, getSimilarTopics} from '../service/api'
 import {getLastTimeStr} from '../lib/utils.js'
 import topicLink from '../components/topic-link.vue'
 import jkButton from '../components/jk-button.vue'
@@ -88,8 +88,9 @@ export default {
       selectItem: 2,
       messageItem: {},
       comments: [],
-      recommendTopics: [],
+      similarTopics: [],
       noData: false,
+      topicId: '',
       currentData: [],
       no_read_len: 0
     }
@@ -99,59 +100,33 @@ export default {
   mounted () {
     this.getForSharePage()
     this.getListHotComments()
-    this.getTopicRecommendations()
   },
   methods: {
     getForSharePage () {
-      let params = this.$route.params.id
-      $.get('https://app.jike.ruguoapp.com/1.0/messages/getForSharePage?id=' + params, (data) => {
-        this.scroll = true
-        if (data) {
-          this.messageItem = data
-          console.log(this.messageItem)
+      let messageId = this.$route.params.id
+      sharePage(messageId).then(res => {
+        if (res) {
+          this.messageItem = res
+          this.topicId = res.topic.id
+          this.getListSimiLarTopics()
         }
       })
     },
     getListHotComments () {
-      let params = this.$route.params.id
-      $.get('https://app.jike.ruguoapp.com/1.0/messageComments/listHotComments?minLikes=1&messageId=' + params, (d) => {
-        this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeComments)
-        }
-      })
-    },
-    mergeComments (comment) {
-      this.comments.push(comment)
-    },
-    getMessageDetail () {
       let messageId = this.$route.params.id
-      $.get('https://app.jike.ruguoapp.com/1.0/messages/showDetail' + messageId, (d) => {
-        this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeTopics)
+      getHotComments(messageId).then(res => {
+        if (res && res.data) {
+          this.comments = res.data
         }
       })
     },
     getListSimiLarTopics () {
-      let params = $.param(this.searchKey)
-      $.get('https://app.jike.ruguoapp.com/1.0/topics/listSimilarTopics?' + params, (d) => {
-        this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeTopics)
+      let topicId = this.topicId
+      getSimilarTopics(topicId).then(res => {
+        if (res && res.data) {
+          this.similarTopics = res.data
         }
       })
-    },
-    getTopicRecommendations () {
-      $.get('https://app.jike.ruguoapp.com/1.0/topicRecommendations/get', (d) => {
-        this.scroll = true
-        if (d && d.data) {
-          this.recommendTopics = d.data
-        }
-      })
-    },
-    mergeTopics (topic) {
-      this.topics.push(topic)
     },
     getLastTimeStr (date, friendly) {
       return getLastTimeStr(date, friendly)

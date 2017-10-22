@@ -68,6 +68,7 @@
 </template>
 <script>
 import $ from 'webpack-zepto'
+import {messageRecommend} from '../service/api'
 import nvHead from '../components/header.vue'
 import vueVideo from '../components/vue-video.vue'
 import nvFoot from '../components/footer.vue'
@@ -128,11 +129,10 @@ export default {
   },
   methods: {
     getTopics () {
-      let params = $.param(this.searchKey)
-      $.get('https://app.jike.ruguoapp.com/1.0/web/listRecommendMessages?' + params, (d) => {
+      messageRecommend().then(res => {
         this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeTopics)
+        if (res && res.data) {
+          res.data.forEach(this.mergeTopics)
         }
       })
     },

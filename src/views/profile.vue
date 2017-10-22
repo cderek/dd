@@ -48,7 +48,7 @@
 }
 </style>
 <template>
-  <div>
+  <div class="page-wrap" transition-mode="out-in">
     <nv-head page-type="用户信息" :fix-head="true" :show-menu="false" :need-add="true"></nv-head>
     <ul class="login-no" v-if="!currentData.loginname">
       <div class="avatar">
@@ -95,8 +95,6 @@
 </template>
 
 <script>
-import $ from 'webpack-zepto'
-import {getLastTimeStr} from '../lib/utils.js'
 import nvHead from '../components/header.vue'
 import nvFoot from '../components/footer.vue'
 
@@ -109,47 +107,10 @@ export default {
     }
   },
   mounted () {
-    let loginname = this.$route.params.loginname
-    if (loginname) {
-      this.getUser()
-    }
   },
   methods: {
-    changeItem (idx) {
-      this.selectItem = idx
-      this.currentData = idx === 1 ? this.user.recent_replies : this.user.recent_topics
-    },
-    getLastTimeStr (date, friendly) {
-      return getLastTimeStr(date, friendly)
-    },
-    getUser () {
-      let loginname = this.$route.params.loginname
-      if (!loginname) {
-        this.$alert('缺少用户名参数')
-        this.$router.push({
-          path: '/'
-        })
-        return false
-      }
-      $.get('https://app.jike.ruguoapp.com/1.0/user/' + loginname, (d) => {
-        if (d && d.data) {
-          let data = d.data
-          this.user = data
-          if (data.recent_replies.length > 0) {
-            this.currentData = data.recent_replies
-          } else {
-            this.currentData = data.recent_topics
-            this.selectItem = 2
-          }
-        }
-      })
-    }
   },
   watch: {
-    // 切换页面
-    '$route' (to, from) {
-      this.getUser()
-    }
   },
   components: {
     nvHead,

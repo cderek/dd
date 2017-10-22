@@ -1,5 +1,5 @@
 <template>
-  <div class="message-wrap page-wrap" transition-mode="out-in">
+  <div class="page-wrap" transition-mode="out-in">
     <div class="related-personal-updates" transition="fade">
       <div v-if="popularPersonalUpdates" class="personal-updates" transition="fade">
         <h1>动态精选</h1>
@@ -35,10 +35,7 @@
 
 
 <script>
-import $ from 'webpack-zepto'
-import {getLastTimeStr} from '../lib/utils.js'
-import topicLink from '../components/topic-link.vue'
-import jkButton from '../components/jk-button.vue'
+import {popularPersonalUpdate} from '../service/api'
 import nvFoot from '../components/footer.vue'
 
 export default {
@@ -60,40 +57,18 @@ export default {
   },
   methods: {
     getPopularPersonalUpdate () {
-      $.post('https://app.jike.ruguoapp.com/1.0/personalUpdate/listPopular', (d) => {
+      popularPersonalUpdate().then(res => {
         this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergePersonalUpdates)
+        if (res && res.data) {
+          res.data.forEach(this.mergePersonalUpdates)
         }
       })
     },
     mergePersonalUpdates (personalUpdate) {
       this.popularPersonalUpdates.push(personalUpdate)
-    },
-    getListSimiLarTopics () {
-      let params = $.param(this.searchKey)
-      $.get('https://app.jike.ruguoapp.com/1.0/topics/listSimilarTopics?' + params, (d) => {
-        this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeTopics)
-        }
-      })
-    },
-    getTopicRecommendations () {
-      $.get('https://app.jike.ruguoapp.com/1.0/topicRecommendations/get', (d) => {
-        this.scroll = true
-        if (d && d.data) {
-          d.data.forEach(this.mergeTopics)
-        }
-      })
-    },
-    getLastTimeStr (date, friendly) {
-      return getLastTimeStr(date, friendly)
     }
   },
   components: {
-    topicLink,
-    jkButton,
     nvFoot
   }
 }
