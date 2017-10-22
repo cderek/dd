@@ -93,7 +93,6 @@
     <nv-foot></nv-foot>
   </div>
 </template>
-
 <script>
 import nvHead from '../components/header.vue'
 import nvFoot from '../components/footer.vue'

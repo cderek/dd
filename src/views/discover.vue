@@ -31,9 +31,6 @@
     </div>
   </div>
 </template>
-
-
-
 <script>
 import {popularPersonalUpdate} from '../service/api'
 import nvFoot from '../components/footer.vue'

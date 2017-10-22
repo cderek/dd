@@ -73,7 +73,6 @@
       </div>
   </div>
 </template>
-
 <script>
 import {sharePage, getHotComments, getSimilarTopics} from '../service/api'
 import {getLastTimeStr} from '../lib/utils.js'

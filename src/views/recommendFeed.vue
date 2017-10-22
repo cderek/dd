@@ -20,8 +20,6 @@
     <nv-foot></nv-foot>
   </div>
 </template>
-
-
 <script>
 import {getLastTimeStr} from '../lib/utils.js'
 import {topicRecommend} from '../service/api'
