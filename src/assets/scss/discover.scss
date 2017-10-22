@@ -1,0 +1,203 @@
+.personal-updates{
+  background: #fff;
+  padding: 0.213333rem 0.4rem 0;
+  border-bottom: solid 0.266667rem #f0f3f5;
+}
+
+[data-dpr="1"] .personal-updates {
+  font-size: 14px;
+}
+
+[data-dpr="2"] .personal-updates {
+  font-size: 28px;
+}
+
+[data-dpr="3"] .personal-updates {
+  font-size: 42px;
+}
+
+.personal-updates h1 {
+  font-weight: bold;
+  color: #404040;
+  margin: 0.266667rem 0;
+}
+
+[data-dpr="1"] .personal-updates h1 {
+  font-size: 16px;
+}
+
+[data-dpr="2"] .personal-updates h1 {
+  font-size: 32px;
+}
+
+[data-dpr="3"] .personal-updates h1 {
+  font-size: 48px;
+}
+
+.pu-item {
+  padding-top: 0.4rem;
+  border-bottom: solid 1px #dbdbdb;
+}
+
+.pu-item-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.pu-item-avatar {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  width: 0.96rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 50%;
+  /*overflow: hidden;*/
+  margin-right: 0.266667rem;
+  margin-bottom: -0.426667rem;
+}
+
+.pu-item-username {
+  color: #808080;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pu-item-like {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  color: #bfbfbf;
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCI+CiAgICA8ZGVmcz4KICAgICAgICA8cGF0aCBpZD0iYSIgZD0iTTAgMGgyMHYyMEgweiIvPgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+CiAgICAgICAgICAgIDx1c2UgeGxpbms6aHJlZj0iI2EiLz4KICAgICAgICA8L21hc2s+CiAgICAgICAgPHVzZSBmaWxsPSIjRDhEOEQ4IiBmaWxsLW9wYWNpdHk9IjAiIHhsaW5rOmhyZWY9IiNhIi8+CiAgICAgICAgPGcgc3Ryb2tlPSIjQkZCRkJGIiBzdHJva2Utd2lkdGg9IjIiIG1hc2s9InVybCgjYikiPgogICAgICAgICAgICA8cGF0aCBzdHJva2UtbGluZWNhcD0icm91bmQiIGQ9Ik01Ljk3NSA5LjA1MWwyLjk0MyA4LjA0NSIvPgogICAgICAgICAgICA8cGF0aCBkPSJNMTMuMTA2IDcuMTE2bDEuNjEtLjM0MmMxLjU1OC0uMzI1IDIuODY2LjUyNyAyLjc4IDIuMTE0bC0uNTMgNS4zMTljLS4wOTUuODg4LS40MTMgMS45NzEtMS45NjMgMi4zbC04LjczMiAxLjQ1YTIgMiAwIDAgMS0yLjE3NS0xLjIwOGwtMS45MDMtNC41OTdhMiAyIDAgMCAxIDEuMzM4LTIuN2MzLjY5NS0uOTcyIDUuNTM5LTIuMSA1LjUzMy0zLjM4Mi0uMDAyLS41OTguMDItMS4xMi4wMS0xLjktLjAxMy0xLjAxNy4wMzYtMS41MjMuNzc0LTEuOTE3IDEuNTQtLjczIDIuNzIuMjEzIDMuMTMgMS42MjIuMTMxLjQ2LjEyOCAzLjI0LjEyOCAzLjI0eiIvPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==) 100% 0 no-repeat;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+[data-dpr="1"] .pu-item-like {
+  line-height: 18px;
+  padding-right: 20px;
+  background-size: 16px 16px;
+}
+
+[data-dpr="2"] .pu-item-like {
+  line-height: 36px;
+  padding-right: 40px;
+  background-size: 32px 32px;
+}
+
+[data-dpr="3"] .pu-item-like {
+  line-height: 54px;
+  padding-right: 60px;
+  background-size: 48px 48px;
+}
+
+.pu-item-body {
+  margin-left: 1.226667rem;
+  margin-right: -0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.266667rem;
+}
+
+.pu-item:last-child .pu-item-body {
+  border-bottom: none;
+}
+
+.pu-item-content {
+  line-height: 1.3;
+  color: #404040;
+  margin-bottom: 0.133333rem;
+}
+
+.pu-item-replyto {
+  border-left: 0.053333rem solid #52c5fe;
+  line-height: 1.3;
+  color: #808080;
+  padding: 0.053333rem 0 0.053333rem 0.266667rem;
+  margin: 0.133333rem 0;
+}
+
+[data-dpr="1"] .pu-item-replyto {
+  font-size: 12px;
+}
+
+[data-dpr="2"] .pu-item-replyto {
+  font-size: 24px;
+}
+
+[data-dpr="3"] .pu-item-replyto {
+  font-size: 36px;
+}
+
+.pu-item-time {
+  color: #bfbfbf;
+  margin-bottom: 0.133333rem;
+	width: 6rem;
+	course: hand;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis; /* for IE */
+	-o-text-overflow: ellipsis; /* for Opera */
+	-icab-text-overflow: ellipsis; /* for iCab */
+	-khtml-text-overflow: ellipsis; /* for Konqueror Safari */
+	-moz-text-overflow: ellipsis; /* for Firefox,mozilla */
+	-webkit-text-overflow: ellipsis; /* for Safari,Swift*/ 
+}
+
+[data-dpr="1"] .pu-item-time {
+  font-size: 12px;
+}
+
+[data-dpr="2"] .pu-item-time {
+  font-size: 24px;
+}
+
+[data-dpr="3"] .pu-item-time {
+  font-size: 36px;
+}
+
+.pu-follow-btn {
+  font-weight: bold;
+  color: #00a3ef;
+}
+
+.more-comments-wrap {
+  margin: 0.4rem 0;
+  text-align: center;
+}
+
+.more-comments {
+  display: inline-block;
+  /*width: 210px;*/
+  /*margin: auto;*/
+  text-align: center;
+  color: #404040;
+  background: #e9edf1;
+  text-decoration: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+[data-dpr="1"] .more-comments {
+  padding: 12px 18px;
+  border-radius: 6px;
+}
+
+[data-dpr="2"] .more-comments {
+  padding: 24px 36px;
+  border-radius: 12px;
+}
+
+[data-dpr="3"] .more-comments {
+  padding: 36px 54px;
+  border-radius: 18px;
+}

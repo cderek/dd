@@ -173,10 +173,32 @@
   margin: 0.4rem auto 0.4rem;
 }
 
-//related-topics
 .related-topics{
   padding: 0.48rem 0 0;
   background: #fff;
+}
+
+.recommend-feed {
+	padding: 0.213333rem 0.4rem 0;
+	border-bottom: solid 0.266667rem #f0f3f5;
+}
+
+[data-dpr="1"] .recommend-feed h1 {
+	font-size: 16px;
+}
+
+[data-dpr="2"] .recommend-feed h1 {
+	font-size: 32px;
+}
+
+[data-dpr="3"] .recommend-feed h1 {
+	font-size: 48px;
+}
+
+.recommend-feed h1 {
+  font-weight: bold;
+  color: #404040;
+  margin: 0.266667rem 0;
 }
 
 .related-section-title{

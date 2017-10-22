@@ -19,6 +19,30 @@ const routers = [{
   name: 'hot',
   component: Hot
 }, {
+  path: '/recommend/feed',
+  name: 'recommendFeed',
+  component (resolve) {
+    require.ensure(['../views/recommendFeed.vue'], () => {
+      resolve(require('../views/recommendFeed.vue'))
+    })
+  }
+}, {
+  path: '/discover',
+  name: 'discover',
+  component (resolve) {
+    require.ensure(['../views/discover.vue'], () => {
+      resolve(require('../views/discover.vue'))
+    })
+  }
+}, {
+  path: '/profile',
+  name: 'profile',
+  component (resolve) {
+    require.ensure(['../views/profile.vue'], () => {
+      resolve(require('../views/profile.vue'))
+    })
+  }
+}, {
   path: '/topic/:id',
   name: 'topic',
   component (resolve) {

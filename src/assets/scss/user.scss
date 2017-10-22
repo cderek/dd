@@ -1,0 +1,26 @@
+.is-inline {
+  display: inline-block;
+}
+
+.user-avatar-content {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  background: center center no-repeat;
+  background-size: cover;
+}
+
+.is-round,
+.user-avatar-content {
+  border-radius: 50%;
+}
+
+.user-avatar-content.is-verified::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -10%;
+  width: 40%;
+  height: 40%;
+  background-size: cover;
+}

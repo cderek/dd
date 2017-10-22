@@ -1,173 +1,201 @@
 <template>
-  <div class="fullscreen">
-    <video v-if:video controls :poster="current.thumb" @ended.prevent="switchToNext" @mousemove="showThumbs">
-      <source v-for='(type, src) in current.video' :src="src" :type="type"> HTML5 Video seems to be not supported in your browser.
-    </video>
-  </div>
-  <ul class="popover" v-show="showThumbnails">
-    <li v-for='video in videos' v-show='$index !== currentIndex'>
-      <a :href="firstSource(video.video)" @click.prevent="setCurrent($index)">
-      <img :src="video.thumb" alt="" />
-    </a>
-    </li>
-  </ul>
-  <div v-show='loader'>
-    <div class="loader">
-      <div class="loader__inner" :class="{'loader__inner--active': loader}"></div>
-    </div>
-  </div>
+
 </template>
-
-<script type="text/javascript">
-import Vue from 'vue'
-import $ from 'webpack-zepto'
-
-function debounce (func, wait, immediate) {
-  var timeout
-  return function () {
-    var context = this
-    var args = arguments
-    var later = function () {
-      timeout = null
-      if (!immediate) func.apply(context, args)
-    }
-    var callNow = immediate && !timeout
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-    if (callNow) func.apply(context, args)
-  }
-}
-
-var vm = new Vue({
-  props: ['videoItem'],
-  data: {
-    videos: [{
-      thumb: 'https://media-meta.ruguoapp.com/3d226472910c7fb5420a39412e853821.jpg?imageView2/0/w/800/h/800',
-      video: {
-        'video/mp4': 'http://demosthenes.info/assets/videos/glacier.mp4'
-      }
-    }],
-    currentIndex: 0,
-    timeout: null,
-    showThumbnails: false,
-    forceShow: false,
-    loader: false
-  },
-  mounted () {
-    this.getVideoData()
-  },
-  computed: {
-    current: function () {
-      return this.videos[this.currentIndex]
-    }
-  },
-  methods: {
-    getVideoData () {
-      let messageId = this.videoItem.id
-      $.get('https://app.jike.ruguoapp.com/1.0/misc/getMediaMeta?message=' + messageId, (d) => {
-        if (d && d.data) {
-          this.videoItem['video_datum'] = d.data
-        }
-      })
-    },
-    firstSource: function (obj) {
-      return obj['video/mp4']
-    },
-    setCurrent: function (index) {
-      this.currentIndex = index
-    },
-    switchToNext: function () {
-      this.currentIndex++
-      if (this.currentIndex === this.videos.length) {
-        this.currentIndex = 0
-      }
-    },
-    showThumbs: function () {
-      this.showThumbnails = true
-      this.hideThumbs()
-    },
-    hideThumbs: debounce(function () {
-      vm.showThumbnails = false
-    }, 1000)
-  },
-
-  watch: {
-    current: function (newVal, oldVal) {
-      this.$els.video.load()
-      this.loader = true
-      setTimeout(function () {
-        this.$els.video.play()
-        this.loader = false
-      }.bind(this), 1000)
-    }
-  },
-
-  ready: function () {
-    this.$els.video.play()
-  }
-})
-</script>
 <style lang="scss">
-.fullscreen {
+.wrap {
+  position: relative;
   width: 100%;
-  height: 100%;
-
-  video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
+  padding-top: 56.25%;
+  overflow: hidden;
+  background: #000 center center;
+  background-size: cover;
 }
-.popover {
-  width: 100%;
-  background-color: rgba(black, 0.4);
+
+.wrap.started {
+  background-image: none !important;
+}
+
+.is-bilibili .wrap {
+  padding-top: 62.5%;
+}
+
+.is-bilibili .wrap::after {
+  content: "";
+  display: block;
+  width: 12%;
+  height: 15%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+
+video,
+iframe,
+.error-info {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 0;
-  margin: 0;
-  z-index: 100;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+}
 
+iframe {
+  height: 150%;
+  margin-top: -10.66666666667%;
+}
+
+.error-info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-
-  box-shadow: 0 2px 10px rgba(black, .3);
-
-  li {
-    display: inline-block;
-    height: 100%;
-    flex: 1 0 16%;
-
-    img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-  }
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
 }
 
-.loader {
+[data-dpr="1"] .error-info {
+  font-size: 14px;
+}
+
+[data-dpr="2"] .error-info {
+  font-size: 28px;
+}
+
+[data-dpr="3"] .error-info {
+  font-size: 42px;
+}
+
+.btn-open-link {
+  color: #03a9f4;
+  text-decoration: none;
+}
+
+.btn-open-app {
+  margin-top: 0.533333rem;
+  padding: 0.266667rem 0.4rem;
+  border-radius: 2.666667rem;
+  background: #ffe411;
+  color: #000;
+}
+
+.btn-open-link[touched],
+.btn-open-link:hover,
+.btn-open-app[touched],
+.btn-open-app:hover {
+  opacity: 0.9;
+}
+
+.cover {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   position: absolute;
-  background-color: rgba(black, 0.6);
-  z-index: 200;
-  pointer-events: none;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: transparent center center;
+  background-size: cover;
+}
 
-  &__inner {
-    background: yellow;
-    width: 0%;
-    height: 1%;
-    margin: 45% 0 0;
+.cover::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.1);
+}
 
-    &--active {
-      width: 100%;
-      transition: width 1s;
-    }
+.btn-play {
+  display: block;
+  width: 1.333333rem;
+  height: 1.333333rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.1), transparent);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
+.btn-play img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+[touched] .btn-play {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+.btn-play.loading {
+  border: 0.106667rem solid #ffe411;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-animation: rotating 0.6s linear infinite;
+          animation: rotating 0.6s linear infinite;
+}
+
+.btn-play.loading img {
+  display: none;
+}
+
+.duration {
+  position: absolute;
+  bottom: 0.133333rem;
+  right: 0.133333rem;
+  color: #eee;
+}
+
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  to {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
   }
 }
 
+@keyframes rotating {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  to {
+    -webkit-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+  }
+}
 </style>

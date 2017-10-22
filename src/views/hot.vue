@@ -42,6 +42,7 @@
           </div>
           <div v-if="item.sourceRawValue === 'video'" class="video-player msg-video is-bilibili">
             <div v-if="item.video" class="wrap" lazy="loaded" :style="{ 'background-image': 'url(' + item.video.thumbnailUrl + ')' }">
+              <vue-video></vue-video>
               <video :src="item.videoLink" controls="controls" preload="true" playsinline="true">
                 您的浏览器不支持 video 标签。
               </video>
@@ -62,11 +63,14 @@
         </router-link>
       </div>
     </section>
+    <nv-foot></nv-foot>
   </div>
 </template>
 <script>
 import $ from 'webpack-zepto'
 import nvHead from '../components/header.vue'
+import vueVideo from '../components/vue-video.vue'
+import nvFoot from '../components/footer.vue'
 import {getLastTimeStr, throttle} from '../lib/utils.js'
 
 export default {
@@ -165,7 +169,9 @@ export default {
     }
   },
   components: {
-    nvHead
+    nvHead,
+    vueVideo,
+    nvFoot
   }
 }
 </script>
