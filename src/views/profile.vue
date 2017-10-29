@@ -49,7 +49,7 @@
 </style>
 <template>
   <div class="page-wrap" transition-mode="out-in">
-    <nv-head page-type="用户信息" :fix-head="true" :show-menu="false" :need-add="true"></nv-head>
+    <nv-head page-type="profile" :fix-head="true" :show-menu="false" :need-add="true"></nv-head>
     <ul class="login-no" v-if="!currentData.loginname">
       <div class="avatar">
         <svg width="93px" height="83px" viewBox="0 0 93 83">
@@ -94,13 +94,13 @@
   </div>
 </template>
 <script>
-import nvHead from '../components/header.vue'
-import nvFoot from '../components/footer.vue'
+import nvHead from '@/components/header.vue'
+import nvFoot from '@/components/footer.vue'
 
 export default {
   data () {
     return {
-      user: {'avatar_url': '../assets/images/user_unauth.png'},
+      user: {'avatar_url': '@/assets/images/user_unauth.png'},
       currentData: [],
       selectItem: 1
     }

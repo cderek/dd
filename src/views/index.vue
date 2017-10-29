@@ -3,8 +3,8 @@
   </div>
 </template>
 <script>
-require('../assets/scss/index.scss')
-require('../assets/scss/iconfont/iconfont.css')
+require('@/assets/scss/index.scss')
+require('@/assets/scss/iconfont/iconfont.css')
 
 export default {
   mounted () {

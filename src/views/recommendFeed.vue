@@ -21,11 +21,11 @@
   </div>
 </template>
 <script>
-import {getLastTimeStr} from '../lib/utils.js'
-import {topicRecommend} from '../service/api'
-import topicLink from '../components/topic-link.vue'
-import jkButton from '../components/jk-button.vue'
-import nvFoot from '../components/footer.vue'
+import {getLastTimeStr} from '@/lib/utils.js'
+import {topicRecommend} from '@/service/api'
+import topicLink from '@/components/topic-link.vue'
+import jkButton from '@/components/jk-button.vue'
+import nvFoot from '@/components/footer.vue'
 
 export default {
   data () {

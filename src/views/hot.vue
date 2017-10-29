@@ -1,7 +1,6 @@
 <template>
   <div class="hot page-wrap" transition-mode="out-in">
-    <nv-head ref="head" :fix-head="true" :need-add="true">
-    </nv-head>
+    <nv-head page-type="hot" :fix-head="true" :show-menu="false" :need-add="true"></nv-head>
     <section>
       <div class="msg" v-for="item in topics" :key="item.id">
         <div class="msg-header">
@@ -68,11 +67,11 @@
 </template>
 <script>
 import $ from 'webpack-zepto'
-import {messageRecommend} from '../service/api'
-import nvHead from '../components/header.vue'
-import vueVideo from '../components/vue-video.vue'
-import nvFoot from '../components/footer.vue'
-import {getLastTimeStr, throttle} from '../lib/utils.js'
+import {messageRecommend} from '@/service/api'
+import nvHead from '@/components/header.vue'
+import vueVideo from '@/components/vue-video.vue'
+import nvFoot from '@/components/footer.vue'
+import {getLastTimeStr, throttle} from '@/lib/utils.js'
 
 export default {
   filters: {

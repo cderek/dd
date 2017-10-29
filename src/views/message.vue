@@ -74,11 +74,11 @@
   </div>
 </template>
 <script>
-import {sharePage, getHotComments, getSimilarTopics} from '../service/api'
-import {getLastTimeStr} from '../lib/utils.js'
-import topicLink from '../components/topic-link.vue'
-import jkButton from '../components/jk-button.vue'
-import hotComments from '../components/hot-comments.vue'
+import {sharePage, getHotComments, getSimilarTopics} from '@/service/api'
+import {getLastTimeStr} from '@/lib/utils.js'
+import topicLink from '@/components/topic-link.vue'
+import jkButton from '@/components/jk-button.vue'
+import hotComments from '@/components/hot-comments.vue'
 
 export default {
   data () {

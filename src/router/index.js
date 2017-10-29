@@ -51,7 +51,7 @@ const routers = [{
     })
   }
 }, {
-  path: '/message/:id',
+  path: '/message/:id?',
   name: 'message',
   component (resolve) {
     require.ensure(['../views/message.vue'], () => {

@@ -136,7 +136,7 @@
   font-size: 36px;
 }
 
-.pu-item-time {
+.pu-item-bio {
   color: #bfbfbf;
   margin-bottom: 0.133333rem;
 	width: 6rem;
@@ -151,15 +151,72 @@
 	-webkit-text-overflow: ellipsis; /* for Safari,Swift*/ 
 }
 
-[data-dpr="1"] .pu-item-time {
+[data-dpr="1"] .pu-item-bio {
   font-size: 12px;
 }
 
-[data-dpr="2"] .pu-item-time {
+[data-dpr="2"] .pu-item-bio {
   font-size: 24px;
 }
 
-[data-dpr="3"] .pu-item-time {
+[data-dpr="3"] .pu-item-bio {
+  font-size: 36px;
+}
+
+.pu-message-wrap {
+  background: #F1F3F5;
+  min-height: 1.5rem;
+  padding: .26rem .3rem 0 .26rem;
+  margin-bottom: .2rem;
+}
+
+.pu-message-image {
+  float: left;
+  padding-top: 12%;
+  margin-right: .26rem;
+  width: 0.96rem;
+  background-size: cover;
+}
+
+.pu-message-preview {
+  color: #333;
+  padding-bottom: .1rem;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+[data-dpr="1"] .pu-message-preview {
+  font-size: 12px;
+}
+
+[data-dpr="2"] .pu-message-preview {
+  font-size: 24px;
+}
+
+[data-dpr="3"] .pu-message-preview {
+  font-size: 36px;
+}
+
+.pu-message-title {
+  color: #bfbfbf;
+  text-align: right;
+  border-top: 1px solid #bfbfbf;
+  padding: .1rem 0 .1rem .2rem;
+}
+
+[data-dpr="1"] .pu-message-title {
+  font-size: 12px;
+}
+
+[data-dpr="2"] .pu-message-title {
+  font-size: 24px;
+}
+
+[data-dpr="3"] .pu-message-title {
   font-size: 36px;
 }
 
