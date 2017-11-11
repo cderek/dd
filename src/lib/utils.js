@@ -1,6 +1,130 @@
 'use strict'
-
 import Timeago from 'timeago.js'
+
+export const setStore = (name, content) => {
+  if (!name) return
+  if (typeof content !== 'string') {
+    content = JSON.stringify(content)
+  }
+  window.localStorage.setItem(name, content)
+}
+
+export const getStore = name => {
+  if (!name) return
+  return window.localStorage.getItem(name)
+}
+
+export const removeStore = name => {
+  if (!name) return
+  window.localStorage.removeItem(name)
+}
+
+export const getStyle = (element, attr, NumberMode = 'int') => {
+  let target
+  if (attr === 'scrollTop') {
+    target = element.scrollTop
+  } else if (element.currentStyle) {
+    target = element.currentStyle[attr]
+  } else {
+    target = document.defaultView.getComputedStyle(element, null)[attr]
+  }
+  return NumberMode === 'float' ? parseFloat(target) : parseInt(target)
+}
+
+/**
+ * 页面到达底部，加载更多
+ */
+export const loadMore = (element, callback) => {
+  let windowHeight = window.screen.height
+  let height
+  let setTop
+  let paddingBottom
+  let marginBottom
+  let requestFram
+  let oldScrollTop
+
+  document.body.addEventListener('scroll', () => {
+    loadMore()
+  }, false)
+  element.addEventListener('touchstart', () => {
+    height = element.offsetHeight
+    setTop = element.offsetTop
+    paddingBottom = getStyle(element, 'paddingBottom')
+    marginBottom = getStyle(element, 'marginBottom')
+  }, { passive: true })
+
+  element.addEventListener('touchmove', () => {
+    loadMore()
+  }, { passive: true })
+
+  element.addEventListener('touchend', () => {
+    oldScrollTop = document.body.scrollTop
+    moveEnd()
+  }, { passive: true })
+
+  const moveEnd = () => {
+    requestFram = requestAnimationFrame(() => {
+      if (document.body.scrollTop !== oldScrollTop) {
+        oldScrollTop = document.body.scrollTop
+        loadMore()
+        moveEnd()
+      } else {
+        cancelAnimationFrame(requestFram)
+        height = element.offsetHeight
+        loadMore()
+      }
+    })
+  }
+
+  const loadMore = () => {
+    if (document.body.scrollTop + windowHeight >= height + setTop + paddingBottom + marginBottom) {
+      callback()
+    }
+  }
+}
+
+/**
+ * 显示返回顶部按钮，开始、结束、运动 三个过程中调用函数判断是否达到目标点
+ */
+export const showBack = callback => {
+  let requestFram
+  let oldScrollTop
+
+  document.addEventListener('scroll', () => {
+    showBackFun()
+  }, false)
+  document.addEventListener('touchstart', () => {
+    showBackFun()
+  }, { passive: true })
+
+  document.addEventListener('touchmove', () => {
+    showBackFun()
+  }, { passive: true })
+
+  document.addEventListener('touchend', () => {
+    oldScrollTop = document.body.scrollTop
+    moveEnd()
+  }, { passive: true })
+
+  const moveEnd = () => {
+    requestFram = requestAnimationFrame(() => {
+      if (document.body.scrollTop !== oldScrollTop) {
+        oldScrollTop = document.body.scrollTop
+        moveEnd()
+      } else {
+        cancelAnimationFrame(requestFram)
+      }
+      showBackFun()
+    })
+  }
+  const showBackFun = () => {
+    if (document.body.scrollTop > 500) {
+      callback()
+    } else {
+      callback(undefined)
+    }
+  }
+}
 
 export const getCheck = {
   checkEmail (val) {

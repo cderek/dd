@@ -125,5 +125,4 @@ export default {
     @include sc(.35rem, #666);
   }
 }
-
 </style>
