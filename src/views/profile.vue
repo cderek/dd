@@ -8,13 +8,12 @@
     margin: 0 0.32rem;
     display: block;
     font-size: 30px;
-    font-weight: 200;
-    padding: .5rem 0;
+    font-weight: 400;
+    padding: .4rem 0;
     text-align: left;
     text-indent: 1px;
     line-height: 30px;
     color: #666;
-    font-weight: 500;
 }
 .iconfont {
     font-family: iconfont!important;
@@ -30,7 +29,7 @@
 }
 .login-no {
   background: #fff;
-  padding: .6rem;
+  padding: .4rem;
   margin-top: .3rem;
 }
 .login-no .info {

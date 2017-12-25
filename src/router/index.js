@@ -33,7 +33,8 @@ const routers = [{
     require.ensure(['../views/discover.vue'], () => {
       resolve(require('../views/discover.vue'))
     })
-  }
+  },
+  meta: { keepAlive: true }
 }, {
   path: '/profile',
   name: 'profile',
@@ -41,7 +42,8 @@ const routers = [{
     require.ensure(['../views/profile.vue'], () => {
       resolve(require('../views/profile.vue'))
     })
-  }
+  },
+  meta: { keepAlive: true }
 }, {
   path: '/topic/:id',
   name: 'topic',

@@ -17,6 +17,7 @@
     "lib-flexible": "^0.3.2",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
+    "vuex": "^3.0.1",
     "webpack-zepto": "^0.0.1"
   },
   "devDependencies": {
