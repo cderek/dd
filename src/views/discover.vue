@@ -1,10 +1,10 @@
 <template>
   <div class="page-wrap" transition-mode="out-in">
     <div class="related-personal-updates" transition="fade">
-      <div v-if="popularPersonalUpdates" class="personal-updates" transition="fade">
+      <div v-if="trendsDatum" class="personal-updates" transition="fade">
         <h1>动态精选</h1>
         <ul class="pu-list">
-          <li class="pu-item" v-for="item in popularPersonalUpdates" :key="item.id">
+          <li class="pu-item" v-for="item in trendsDatum">
             <div class="pu-item-header">
               <div class="user-avatar pu-item-avatar is-round is-inline">
                 <div class="user-avatar-content" :style="{ 'background-image': 'url(' + item.users[0].profileImageUrl + ')' }">
@@ -24,7 +24,7 @@
                 <router-link :to="{name:'message',params:{id:item.repost.message.id}}">
                   <div class="pu-message-image" v-if="item.repost.message.pictureUrls && item.repost.message.pictureUrls.length>0" :style="{ 'background-image': 'url(' + item.repost.message.pictureUrls[0].thumbnailUrl + ')' }"></div>
                   <div class="pu-message-image" v-if="item.repost.message.video" :style="{ 'background-image': 'url(' + item.repost.message.video.thumbnailUrl + ')' }"></div>
-                  <p class="pu-message-preview">{{item.repost.message.content}}</p>
+                  <p class="pu-message-preview">{{item.content}}</p>
                   <p class="pu-message-title">{{item.repost.message.title}}</p>
                 </router-link>
               </div>
@@ -35,6 +35,7 @@
           </li>
         </ul>
       </div>
+      <infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" />
       <nv-foot></nv-foot>
     </div>
   </div>
@@ -46,28 +47,35 @@ import nvFoot from '@/components/footer.vue'
 export default {
   data () {
     return {
-      showMenu: false,
-      selectItem: 2,
-      messageItem: {},
-      popularPersonalUpdates: [],
-      noData: false,
-      currentData: [],
-      no_read_len: 0
+      refreshing: false,
+      loading: false,
+      count: 1,
+      scroller: null,
+      trendsDatum: []
     }
   },
-  computed: {
-  },
   mounted () {
-    this.getPopularPersonalUpdate()
+    this.scroller = this.$el
+    this.getPopularTrends()
   },
   methods: {
-    getPopularPersonalUpdate () {
+    getPopularTrends () {
       popularPersonalUpdate().then(res => {
-        this.scroll = true
         if (res && res.data) {
-          this.popularPersonalUpdates = res.data
+          res.data.forEach(this.mergeTrendData)
+          this.loading = false
         }
       })
+    },
+    mergeTrendData (topic) {
+      this.trendsDatum.push(topic)
+    },
+    loadMore () {
+      this.loading = true
+      setTimeout(() => {
+        this.count--
+        this.getPopularTrends()
+      }, 500)
     }
   },
   components: {

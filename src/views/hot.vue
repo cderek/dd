@@ -91,7 +91,6 @@ export default {
       loading: false,
       count: 1,
       scroller: null,
-      scroll: true,
       topics: [],
       index: {},
       searchKey: {
@@ -139,7 +138,6 @@ export default {
   methods: {
     getTopics () {
       messageRecommend().then(res => {
-        this.scroll = true
         if (res && res.data) {
           res.data.forEach(this.mergeTopics)
           this.loading = false
@@ -153,16 +151,6 @@ export default {
       } else {
         this.index[topic.id] = this.topics.length
         this.topics.push(topic)
-      }
-    },
-    getScrollData () {
-      if (this.scroll) {
-        let totalheight = parseInt($(window).height(), 20) + parseInt($(window).scrollTop(), 20)
-        if ($(document).height() <= totalheight + 200) {
-          this.scroll = false
-          this.searchKey.page += 1
-          this.getTopics()
-        }
       }
     },
     loadMore () {
@@ -180,9 +168,6 @@ export default {
         this.topics = []
         this.index = {}
       }
-      this.searchKey.page = 1
-      this.getTopics()
-      this.$refs.head.show = false
     }
   },
   components: {
