@@ -1,9 +1,3 @@
-const Home = resolve => {
-  require.ensure(['../views/index.vue'], () => {
-    resolve(require('../views/index.vue'))
-  })
-}
-
 const Hot = resolve => {
   require.ensure(['../views/hot.vue'], () => {
     resolve(require('../views/hot.vue'))
@@ -13,7 +7,7 @@ const Hot = resolve => {
 const routers = [{
   path: '/',
   name: 'home',
-  component: Home
+  component: Hot
 }, {
   path: '/hot',
   name: 'hot',
@@ -62,7 +56,7 @@ const routers = [{
   }
 }, {
   path: '*',
-  component: Home
+  component: Hot
 }]
 
 export default routers

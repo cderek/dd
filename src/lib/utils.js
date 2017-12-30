@@ -31,101 +31,6 @@ export const getStyle = (element, attr, NumberMode = 'int') => {
   return NumberMode === 'float' ? parseFloat(target) : parseInt(target)
 }
 
-/**
- * 页面到达底部，加载更多
- */
-export const loadMore = (element, callback) => {
-  let windowHeight = window.screen.height
-  let height
-  let setTop
-  let paddingBottom
-  let marginBottom
-  let requestFram
-  let oldScrollTop
-
-  document.body.addEventListener('scroll', () => {
-    loadMore()
-  }, false)
-  element.addEventListener('touchstart', () => {
-    height = element.offsetHeight
-    setTop = element.offsetTop
-    paddingBottom = getStyle(element, 'paddingBottom')
-    marginBottom = getStyle(element, 'marginBottom')
-  }, { passive: true })
-
-  element.addEventListener('touchmove', () => {
-    loadMore()
-  }, { passive: true })
-
-  element.addEventListener('touchend', () => {
-    oldScrollTop = document.body.scrollTop
-    moveEnd()
-  }, { passive: true })
-
-  const moveEnd = () => {
-    requestFram = requestAnimationFrame(() => {
-      if (document.body.scrollTop !== oldScrollTop) {
-        oldScrollTop = document.body.scrollTop
-        loadMore()
-        moveEnd()
-      } else {
-        cancelAnimationFrame(requestFram)
-        height = element.offsetHeight
-        loadMore()
-      }
-    })
-  }
-
-  const loadMore = () => {
-    if (document.body.scrollTop + windowHeight >= height + setTop + paddingBottom + marginBottom) {
-      callback()
-    }
-  }
-}
-
-/**
- * 显示返回顶部按钮，开始、结束、运动 三个过程中调用函数判断是否达到目标点
- */
-export const showBack = callback => {
-  let requestFram
-  let oldScrollTop
-
-  document.addEventListener('scroll', () => {
-    showBackFun()
-  }, false)
-  document.addEventListener('touchstart', () => {
-    showBackFun()
-  }, { passive: true })
-
-  document.addEventListener('touchmove', () => {
-    showBackFun()
-  }, { passive: true })
-
-  document.addEventListener('touchend', () => {
-    oldScrollTop = document.body.scrollTop
-    moveEnd()
-  }, { passive: true })
-
-  const moveEnd = () => {
-    requestFram = requestAnimationFrame(() => {
-      if (document.body.scrollTop !== oldScrollTop) {
-        oldScrollTop = document.body.scrollTop
-        moveEnd()
-      } else {
-        cancelAnimationFrame(requestFram)
-      }
-      showBackFun()
-    })
-  }
-  const showBackFun = () => {
-    if (document.body.scrollTop > 500) {
-      callback()
-    } else {
-      callback(undefined)
-    }
-  }
-}
-
 export const getCheck = {
   checkEmail (val) {
     var filter = /^([a-zA-Z0-9_\\.\\-])+\\@(([a-zA-Z0-9\\-])+\.)+([a-zA-Z0-9]{2,4})+$/
@@ -137,7 +42,6 @@ export const getCheck = {
   },
   checkPhone (val) {
     var filter = /^1\d{10}$/
-
     if (filter.test(val)) {
       return true
     } else {
@@ -197,32 +101,5 @@ export const getLastTimeStr = (time, friendly) => {
     return MillisecondToDate(time)
   } else {
     return fmtDate(new Date(time), 'yyyy-MM-dd hh:mm')
-  }
-}
-
-/**
- * 配置节流函数
- * @param  {[Function]}  fn     [要执行的函数]
- * @param  {[Number]}  delay    [延迟执行的毫秒数]
- * @param  {[Number]}  mustRun  [至少多久执行一次]
- * @return {[Function]}         [节流函数]
- */
-export const throttle = (fn, wait, mustRun) => {
-  let timeout
-  let startTime = new Date()
-  return function () {
-    let context = this
-    let args = arguments
-    let curTime = new Date()
-
-    clearTimeout(timeout)
-    // 如果达到了规定的触发时间间隔，触发 handler
-    if (curTime - startTime >= mustRun) {
-      fn.apply(context, args)
-      startTime = curTime
-      // 没达到触发间隔，重新设定定时器
-    } else {
-      timeout = setTimeout(fn, wait)
-    }
   }
 }

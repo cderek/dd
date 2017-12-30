@@ -62,6 +62,12 @@
         </router-link>
       </div>
     </section>
+    <div class="loading" v-if="!topics.length&&!refreshing">
+      <span class="left"></span>
+      <span class="middle"></span>
+      <span class="right"></span>
+    </div>
+    <infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" />
     <nv-foot></nv-foot>
   </div>
 </template>
@@ -71,7 +77,7 @@ import {messageRecommend} from '@/service/api'
 import nvHead from '@/components/header.vue'
 import vueVideo from '@/components/vue-video.vue'
 import nvFoot from '@/components/footer.vue'
-import {getLastTimeStr, throttle} from '@/lib/utils.js'
+import {getLastTimeStr} from '@/lib/utils.js'
 
 export default {
   filters: {
@@ -81,6 +87,10 @@ export default {
   },
   data () {
     return {
+      refreshing: false,
+      loading: false,
+      count: 1,
+      scroller: null,
       scroll: true,
       topics: [],
       index: {},
@@ -94,34 +104,34 @@ export default {
     }
   },
   mounted () {
+    this.scroller = this.$el
     if (this.$route.query && this.$route.query.tab) {
       this.searchKey.tab = this.$route.query.tab
     }
-    if (window.window.sessionStorage.searchKey && window.window.sessionStorage.tab === this.searchKey.tab) {
-      this.topics = JSON.parse(window.window.sessionStorage.topics)
-      this.searchKey = JSON.parse(window.window.sessionStorage.searchKey)
-      this.$nextTick(() => $(window).scrollTop(window.window.sessionStorage.scrollTop))
+    if (window.sessionStorage.searchKey && window.sessionStorage.tab === this.searchKey.tab) {
+      this.topics = JSON.parse(window.sessionStorage.topics)
+      this.searchKey = JSON.parse(window.sessionStorage.searchKey)
+      this.$nextTick(() => $(window).scrollTop(window.sessionStorage.scrollTop))
     } else {
       this.getTopics()
     }
-    $(window).on('scroll', throttle(this.getScrollData, 300, 1000))
   },
   beforeRouteLeave (to, from, next) {
     if (to.name === 'topic') {
-      window.window.sessionStorage.scrollTop = $(window).scrollTop()
-      window.window.sessionStorage.topics = JSON.stringify(this.topics)
-      window.window.sessionStorage.searchKey = JSON.stringify(this.searchKey)
-      window.window.sessionStorage.tab = from.query.tab || 'all'
+      window.sessionStorage.scrollTop = $(window).scrollTop()
+      window.sessionStorage.topics = JSON.stringify(this.topics)
+      window.sessionStorage.searchKey = JSON.stringify(this.searchKey)
+      window.sessionStorage.tab = from.query.tab || 'all'
     }
     $(window).off('scroll')
     next()
   },
   beforeRouteEnter (to, from, next) {
     if (from.name !== 'topic') {
-      if (window.window.sessionStorage.tab) {
-        window.window.sessionStorage.removeItem('topics')
-        window.window.sessionStorage.removeItem('searchKey')
-        window.window.sessionStorage.removeItem('tab')
+      if (window.sessionStorage.tab) {
+        window.sessionStorage.removeItem('topics')
+        window.sessionStorage.removeItem('searchKey')
+        window.sessionStorage.removeItem('tab')
       }
     }
     next()
@@ -132,6 +142,7 @@ export default {
         this.scroll = true
         if (res && res.data) {
           res.data.forEach(this.mergeTopics)
+          this.loading = false
         }
       })
     },
@@ -153,6 +164,13 @@ export default {
           this.getTopics()
         }
       }
+    },
+    loadMore () {
+      this.loading = true
+      setTimeout(() => {
+        this.count--
+        this.getTopics()
+      }, 500)
     }
   },
   watch: {
